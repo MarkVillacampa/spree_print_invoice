@@ -1,23 +1,23 @@
 require 'prawn'
 
 module ActionView
-  module TemplateHandlers
-    class Prawn 
+  module Template::Handlers
+    class Prawn
       def self.register!
         Template.register_template_handler :prawn, self
       end
-            
+
       def self.call(template)
         %(extend #{DocumentProxy}; #{template.source}; pdf.render)
       end
-      
+
       module DocumentProxy
         def pdf
           @pdf ||= ::Prawn::Document.new
         end
-        
+
       private
-      
+
         def method_missing(method, *args, &block)
           pdf.respond_to?(method) ? pdf.send(method, *args, &block) : super
         end
@@ -26,4 +26,4 @@ module ActionView
   end
 end
 
-ActionView::TemplateHandlers::Prawn.register!
+ActionView::Template::Handlers::Prawn.register!
