@@ -1,4 +1,4 @@
-2module SpreePrintInvoice
+module SpreePrintInvoice
   class Engine < Rails::Engine
     engine_name 'spree_print_invoice'
 
