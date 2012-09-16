@@ -1,15 +1,15 @@
-module SpreePrintInvoice
+2module SpreePrintInvoice
   class Engine < Rails::Engine
     engine_name 'spree_print_invoice'
-    
+
     initializer "spree.print_invoice.environment", :before => :load_config_initializers do |app|
       Spree::PrintInvoice::Config = Spree::PrintInvoiceConfiguration.new
     end
-    
+
     initializer "spree.print_invoice.mimetypes" do |app|
       Mime::Type.register 'application/pdf', :pdf
     end
-    
+
     def self.activate
 
       Dir.glob(File.join(File.dirname(__FILE__), "../../app/**/*_decorator*.rb")) do |c|
